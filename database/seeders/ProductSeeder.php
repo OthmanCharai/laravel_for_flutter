@@ -14,6 +14,7 @@ class ProductSeeder extends Seeder
      * @return void
      */
     public function run()
+
     {
         //
         $nbProduct=(int)$this->command->ask("type Product Number");

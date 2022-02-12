@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class TransactionSeeder extends Seeder
+class CartSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,15 +16,11 @@ class TransactionSeeder extends Seeder
     public function run()
     {
         //
-
-        $products=Product::all();
-
-        User::all()->each(function ($user) use ($products) {
-            $user->shopping()->attach(
-                $products->random(rand(1, 5))->pluck('id')->toArray()
+        $users=User::all();
+        Product::all()->each(function ($product) use ($users) {
+            $product->carts()->attach(
+            $users->random(rand(1, 3))->pluck('id')->toArray(),
             );
         });
-
-
     }
 }

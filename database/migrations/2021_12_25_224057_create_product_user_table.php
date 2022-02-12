@@ -18,8 +18,6 @@ class CreateProductUserTable extends Migration
             $table->integer('quantity')->default("5");
             $table->foreignId("user_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId("product_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-
-
             $table->timestamps();
             $table->softDeletes();
         });

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategoryFactory extends Factory
+class ColorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +14,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            "name"=>$this->faker->name(),
-            "image"=>$this->faker->imageUrl($width = 640, $height = 480),
-            "description"=>$this->faker->text(),
+            //
+            "color"=>$this->faker->hexColor(),
         ];
     }
 }

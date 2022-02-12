@@ -10,6 +10,7 @@ use App\Http\Requests\AuthRequest;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -38,16 +39,16 @@ class ApiAuthController extends Controller
     }
     public function getUser(Request $request){
         $id=$request->id;
-        $prd=Product::where("user_id","3")->get();
-        return response()->json(['user'=>$request->user(),"product"=>$prd]);
-
+        $prd=$request->user()->userFavorite()->get();
+        return response()->json(['user'=>$request->user(),"favorites"=>$prd]);
     }
+
     public function store(Request $request){
         $rememberme=null;
         if($request['remember_token']){
             $rememberme=Str::random(10);
         }
-        
+
         $user=User::create([
             'name' => $request['name'],
             'email' => $request['email'],
@@ -67,5 +68,24 @@ class ApiAuthController extends Controller
         );
 
     }
+    public function addToFavorite(Request $request){
+        $user=User::find($request->user_id);
+        $user->userFavorite()->syncWithoutDetaching([$request->product_id]);
+        return response()->json("ok");
+    }
+    public function getFavorite($user_id){
+        $user=User::find($user_id);
+        $product=Product::whereHas('favorites', function (Builder $query )use ($user){
+            $query->where('user_id', 'like', $user->id);
+        })->has("images")->with("images")->get();
+        return response()->json($product);
+
+    }
+    public function removeFromFavorite(Request $request){
+        $user=User::find($request->user_id);
+        $user->userFavorite()->detach([$request->product_id]);
+        return response()->json("ok");
+    }
+
 
 }

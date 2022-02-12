@@ -15,24 +15,32 @@ class Product extends Model
         'quantity',
         'status',
         'image',
-        'seller_id',
+        'user_id',
+        'price',
+        "isPopulaire"
     ];
-    public function seller(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
-    public function buyer()
+  /*   public function buyer()
     {
         return $this->belongsToMany(User::class);
-    }
-    public function favorite(){
-        return $this->hasMany(Favorite::class);
+    } */
+    public function favorites(){
+        return $this->belongsToMany(User::class,'favorites','product_id','user_id')->withTimestamps();
     }
     public function images(){
         return $this->hasMany(Image::class);
+    }
+    public function colors(){
+        return $this->belongsToMany(Color::class)->withTimestamps();
+    }
+    public function carts(){
+        return $this->belongsToMany(User::class,'carts','product_id','user_id')->withTimestamps()->withPivot('quantity');
     }
 }

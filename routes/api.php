@@ -35,5 +35,14 @@ Route::prefix("v1")->name("api.v1.")->namespace("App\Http\Controllers\api")->gro
         Route::apiResource('/categories',"CategoryController" );
         Route::apiResource('/home',"HommeController" );
         Route::apiResource("/products","ProductController");
+        Route::get("/productColor/{id}","ProductController@getProductColor");
+        Route::post("/favorite","ApiAuthController@addToFavorite");
+        Route::post("/remove","ApiAuthController@removeFromFavorite");
+        Route::post("/carts","CartController@addToCart");
+        Route::post("/carts/remove","CartController@removeFromCart");
+        Route::apiResource("/cart",'CartController');
+        Route::post("/products/user","ProductController@removeFromProduct");
+        Route::get("/favorite/user/{id}","ApiAuthController@getFavorite");
+
     });
 });

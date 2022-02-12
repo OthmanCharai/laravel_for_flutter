@@ -14,9 +14,8 @@ class ProductUserFactory extends Factory
     public function definition()
     {
         return [
-            "created_at"=>$this->faker->date(),
-            "updated_at"=>$this->faker->date(),
             "quantity"=>$this->faker->biasedNumberBetween($min = 10, $max = 20, $function = 'sqrt'),
+            "price"=>$this->faker->rand(10,100),
         ];
     }
 }

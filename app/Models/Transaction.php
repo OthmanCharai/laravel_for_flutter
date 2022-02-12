@@ -11,5 +11,6 @@ class Transaction extends Model
     protected $table="product_user";
     protected $fillable = [
         'quantity',
+        
     ];
 }

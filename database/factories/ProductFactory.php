@@ -20,7 +20,8 @@ class ProductFactory extends Factory
             "updated_at"=>$this->faker->date(),
             "quantity"=>$this->faker->biasedNumberBetween($min = 10, $max = 20, $function = 'sqrt'),
             "status"=>$this->faker->text(),
-            "price"=>$this->faker->price(),
+            "isPopulaire"=>$this->faker->boolean(),
+            "price"=>$this->faker->biasedNumberBetween($min = 10, $max = 20, $function = 'sqrt')
         ];
     }
 }

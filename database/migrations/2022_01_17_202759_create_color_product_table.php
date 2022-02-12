@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavoritesTable extends Migration
+class CreateColorProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateFavoritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favorites', function (Blueprint $table) {
+        Schema::create('color_product', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("color_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId("product_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId("user_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-
             $table->timestamps();
         });
     }
@@ -29,11 +28,10 @@ class CreateFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::table('favorites', function (Blueprint $table) {
-            $table->dropForeign("favorites_product_id_foreign");
-            $table->dropForeign("favorites_user_id_foreign");
-
+        Schema::table('color_product', function (Blueprint $table) {
+            $table->dropForeign("color_product_color_id_foreign");
+            $table->dropForeign("color_product_product_id_foreign");
         });
-        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('color_product');
     }
 }

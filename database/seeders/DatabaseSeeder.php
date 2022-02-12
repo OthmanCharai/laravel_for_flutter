@@ -29,7 +29,12 @@ class DatabaseSeeder extends Seeder
             TransactionSeeder::class,
             CategoryProductSeeder::class,
             BannerSeeder::class,
-            ImageSeeder::class
+            ImageSeeder::class,
+            ColorSeeder::class,
+            ColorProductSeeder::class,
+            FavoriteSeeder::class,
+            CartSeeder::class,
+
         ]);
     }
 }
